@@ -12,17 +12,24 @@ app.config.from_object('config')
 
 def join(models_dir, dest_file, read_size):
 
+    # Create a new destination file
+    output_path = os.path.join(models_dir, dest_file)
+    if os.path.isfile(output_path):
+        log.warning("Le fichier " + output_path + " existe déjà : on le supprime")
+        os.remove(output_path)
+
     # Get a list of the file parts
     parts = [f for f in os.listdir(models_dir) if f.startswith(dest_file.split('.')[0])]
+    log.warning("Récupération des " + str(len(parts)) + " fichiers du modèle")
 
-    # Create a new destination file
-    output_file = open(os.path.join(models_dir, dest_file), 'wb')
+    output_file = open(output_path, 'wb')
 
     # Go through each portion one by one
     for file in parts:
 
         # Assemble the full path to the file
-        path = file
+        path = os.path.join(models_dir, file)
+        log.warning("Est-ce que le fichier " + path + " existe ? => " + str(os.path.isfile(path)))
 
         # Open the part
         input_file = open(path, 'rb')
@@ -41,6 +48,7 @@ def join(models_dir, dest_file, read_size):
 
     # Close the output file
     output_file.close()
+    log.warning("Ecriture du fichier " + str(output_path))
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
