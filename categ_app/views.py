@@ -20,6 +20,7 @@ def join(models_dir, dest_file, read_size):
 
     # Get a list of the file parts
     parts = [f for f in os.listdir(models_dir) if f.startswith(dest_file.split('.')[0])]
+    parts.sort()
     log.warning("Récupération des " + str(len(parts)) + " fichiers du modèle")
 
     output_file = open(output_path, 'wb')
