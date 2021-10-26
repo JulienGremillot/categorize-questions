@@ -6,18 +6,16 @@
   <div class="container" id="maincontent" tabindex="-1">
     <div class="row">
       <div class="intro-text">
-        <h1 class="name">Catégorisation de questions</h1>
+        <h1 class="name">Posez votre question !</h1>
         <hr class="star-light">
       </div>
       <div class="col-lg-8 col-lg-offset-2 text-center">
-        <p>
-          Posez votre question !
-        </p>
-        <p style="margin-top: 20px;">
-          <form action="/api">
-            <textarea name="question" cols="40" rows="5"></textarea>
-          </form>
-        </p>
+        <form action="/api">
+          <p style="margin-top: 20px;">
+              <textarea style="color:#333" name="question" cols="80" rows="8"></textarea>
+          </p>
+          <input type="submit" value="Envoyer la question" class="btn btn-primary" />
+        </form>
       </div>
     </div>
   </div>
