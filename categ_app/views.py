@@ -101,7 +101,7 @@ def result():
     question = [w for w in question if w not in app.sw]
     log.warning("On a la question cleanée : " + question)
 
-    res = app.classifier.predict(question)
+    res = app.classifier.predict([' '.join(question)])
     tags = app.mlb.inverse_transform(res)[0]
 
     log.warning("Le modèle a renvoyé " + str(len(tags)) + " tags : " + ' '.join(tags))
