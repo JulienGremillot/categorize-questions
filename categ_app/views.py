@@ -57,10 +57,16 @@ join(models_dir=models_dir, dest_file="classifier.pkl", read_size=50000000)
 log.warning('Classifier reassembled !')
 
 # Je charge le classifier
-app.classifier = pickle.load(open(os.path.join(models_dir, "classifier.pkl"), 'rb'))
+classifier_path = os.path.join(models_dir, "classifier.pkl")
+if os.path.isfile(classifier_path):
+    log.warning("Le fichier " + classifier_path + " existe bien")
+app.classifier = pickle.load(open(classifier_path, 'rb'))
 
 # et le multilabelbinazer
-app.mlb = pickle.load(open(os.path.join(models_dir, "mlb.pkl"), 'rb'))
+mlb_path = os.path.join(models_dir, "mlb.pkl")
+if os.path.isfile(mlb_path):
+    log.warning("Le fichier " + mlb_path + " existe bien")
+app.mlb = pickle.load(open(mlb_path, 'rb'))
 
 
 @app.route('/')
