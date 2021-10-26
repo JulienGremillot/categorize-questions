@@ -1,9 +1,9 @@
-import nltk
 from flask import Flask, render_template, request
 import os
 import logging as log
 import pickle
 import gc
+import nltk
 
 app = Flask(__name__)
 
