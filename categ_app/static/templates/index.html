@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Header -->
+<header>
+  <div class="container" id="maincontent" tabindex="-1">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          {% include 'card.html' %}
+        </div>
+    </div>
+    <div class="row">
+      <div class="intro-text">
+        <h1 class="name">Catégorisation de questions</h1>
+        <hr class="star-light">
+      </div>
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <p>
+          Posez votre question !
+        </p>
+        <p style="margin-top: 20px;">
+          <form action="/api">
+            <textarea name="question" cols="40" rows="5"></textarea>
+          </form>
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
