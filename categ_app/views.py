@@ -1,3 +1,4 @@
+import nltk
 from flask import Flask, render_template, request
 import os
 import logging as log
@@ -70,6 +71,13 @@ if os.path.isfile(mlb_path):
     log.warning("Le fichier " + mlb_path + " existe bien")
 app.mlb = pickle.load(open(mlb_path, 'rb'))
 
+# Initialisation d'un tokenizer
+tokenizer = nltk.RegexpTokenizer(r'\w+')
+
+# On récupère une liste de stopwords anglais
+nltk.download('stopwords')
+app.sw = nltk.corpus.stopwords.words('english')
+
 gc.collect()
 
 @app.route('/')
@@ -81,10 +89,14 @@ def index():
 @app.route('/api/')
 def result():
 
-    # TODO implémenter le nettoyage
+    # Récupération du paramètre
     question = request.args.get('question')
 
-    res = app.classifier.predict([question])
+    # On passe la question en minuscules, on la tokenize et on supprime les stopwords
+    question = tokenizer.tokenize(question.lower())
+    question = [w for w in question if w not in app.sw]
+
+    res = app.classifier.predict(question)
     tags = app.mlb.inverse_transform(res)[0]
 
     log.warning("Le modèle a renvoyé " + str(len(tags)) + " tags : " + ' '.join(tags))
