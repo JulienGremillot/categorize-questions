@@ -96,10 +96,7 @@ def result():
 
     # On passe la question en minuscules, on la tokenize et on supprime les stopwords
     question = tokenizer.tokenize(question.lower())
-    log.warning("On a la question tokenizée : " + question)
-
     question = [w for w in question if w not in app.sw]
-    log.warning("On a la question cleanée : " + question)
 
     res = app.classifier.predict([' '.join(question)])
     tags = app.mlb.inverse_transform(res)[0]
