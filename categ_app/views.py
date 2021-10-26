@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import os
 import logging as log
 import pickle
+import gc
 
 app = Flask(__name__)
 
@@ -69,6 +70,7 @@ if os.path.isfile(mlb_path):
     log.warning("Le fichier " + mlb_path + " existe bien")
 app.mlb = pickle.load(open(mlb_path, 'rb'))
 
+gc.collect()
 
 @app.route('/')
 @app.route('/index/')
@@ -85,4 +87,6 @@ def result():
     res = app.classifier.predict([question])
     tags = app.mlb.inverse_transform(res)[0]
 
-    return render_template('api.html', tags)
+    log.warning("Le modèle a renvoyé " + str(len(tags)) + " tags : " + ' '.join(tags))
+
+    return render_template('api.html', tags=tags)
