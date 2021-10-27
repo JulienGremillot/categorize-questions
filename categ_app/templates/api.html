@@ -10,11 +10,9 @@
         <hr class="star-light">
       </div>
       <div class="col-lg-8 col-lg-offset-2 text-center">
-          <ul>
-          {% for tag in tags %}
-              <li>{{ tag }}</li>
-          {% endfor %}
-          </ul>
+        {% for tag in tags %}
+          <span class="badge badge-dark">{{ tag }}</span>
+        {% endfor %}
       </div>
     </div>
   </div>
