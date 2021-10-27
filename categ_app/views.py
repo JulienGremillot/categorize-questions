@@ -103,8 +103,9 @@ def result():
     question = [w for w in question if w not in app.sw]
 
     res = app.classifier.predict([' '.join(question)])
-    tags = app.mlb.inverse_transform(res)[0]
-
+    inv_tr = app.mlb.inverse_transform(res)
+    log.warning("Le modèle a renvoyé " + str(len(inv_tr)) + " après inv_tr")
+    tags = inv_tr[0]
     log.warning("Le modèle a renvoyé " + str(len(tags)) + " tags : " + ' '.join(tags))
 
     return render_template('api.html', tags=tags)
