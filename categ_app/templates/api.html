@@ -13,6 +13,9 @@
         {% for tag in tags %}
           <span class="badge badge-dark">{{ tag }}</span>
         {% endfor %}
+        {% if tags|length == 0 %}
+          <p>Aucune catégorie identifiée</p>
+        {% endif %}
       </div>
     </div>
   </div>
