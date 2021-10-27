@@ -4,6 +4,7 @@ import logging as log
 import pickle
 import gc
 import nltk
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -93,6 +94,9 @@ def result():
     question = request.args.get('question')
 
     log.warning("On a la question suivante : " + question)
+
+    soup = BeautifulSoup(question, 'html.parser')
+    question = soup.get_text().replace("\n", " ")
 
     # On passe la question en minuscules, on la tokenize et on supprime les stopwords
     question = tokenizer.tokenize(question.lower())
